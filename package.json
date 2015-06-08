@@ -1,0 +1,28 @@
+{
+  "name": "Cachomatic",
+  "version": "1.0.0",
+  "description": "Cachomatic: An AngularJS Local Storage Module",
+  "homepage": "https://github.com/ryanpager/cachomatic",
+  "name": "Ryan Page",
+  "email": "ryanpager@gmail.com",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com:ryanpager/cachomatic.git"
+  },
+  "license": "https://github.com/ryanpager/cachomatic/blob/master/LICENSE",
+  "bugs": {
+    "url": "https://github.com/ryanpager/cachomatic/issues"
+  },
+  "dependencies": {
+    "coffeelint-use-strict": "0.0.1",
+    "gulp": "^3.5.6",
+    "gulp-clean": "^0.3.1",
+    "gulp-coffee": "2.3.1",
+    "gulp-coffeelint": "0.4.0",
+    "gulp-concat": "^2.2.0",
+    "gulp-plumber": "1.0.0",
+    "gulp-uglify": "1.2.0",
+    "gulp-rename": "1.2.2",
+    "gulp-header": "1.2.2"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Cachomatic",
+  "version": "1.0.0",
+  "homepage": "https://github.com/ryanpager/cachomatic.git",
+  "authors": [
+    "Ryan Page <ryanpager@gmail.com>"
+  ],
+  "keywords": [
+    "localStorage",
+    "cache",
+    "angular"
+  ],
+  "main": [
+    "cachomatic.js"
+  ],
+  "dependencies": {
+    "moment": "~2.8.3"
+  }
+}

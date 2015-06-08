@@ -1,0 +1,11 @@
+# Dependency directory
+node_modules
+
+# Bower vendor directory
+vendor/
+
+# Distribution directory
+dist/
+
+# Other Ignores
+.DS_Store

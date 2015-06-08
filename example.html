@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- generic unused meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!-- application title -->
+    <title>Cachomatic Example</title>
+  </head>
+  <body ng-app="example.app">
+    <p>Open Console To View Output</p>
+
+    <!-- example js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.0/angular.js"></script>
+    <script src="./release/cachomatic.js"></script>
+    <script type="text/javascript">
+      /**
+       * @description
+       * Example app module declaration.
+       */
+      angular
+        .module('example.app', [
+          // Make sure to include the cachomatic module
+          'sbb.cachomatic'
+        ])
+        .config([
+          'CachomaticProvider',
+          Config
+        ])
+        .run([
+          'Cachomatic',
+          Bootstrap
+        ])
+
+      /**
+       * @name Config
+       * @description
+       * This function will configure the application as needed.
+       *
+       * @param {sbb.cachomatic} CachomaticProvider
+       */
+      function Config(CachomaticProvider) {
+        // Example cache key prefix to prevent collision
+        CachomaticProvider.setCachePrefix('cacheKey');
+      }
+
+      /**
+       * @name Bootstrap
+       * @description
+       * This function will bootstrap the application as needed.
+       *
+       * @param {sbb.cachomatic} Cachomatic
+       */
+      function Bootstrap(Cachomatic) {
+        // Display the cache key prefix
+        console.log('[Cachomatic] prefix =>', Cachomatic.getCachePrefix());
+
+        // Set a cache string value with no expiration
+        var value = 'awesome';
+        console.log('[Cachomatic] set =>', value);
+        Cachomatic.set('example-key', value);
+
+        // Retrieve the set cache value
+        console.log('[Cachomatic] get =>', Cachomatic.get('example-key'));
+
+        // Set a cache object value with no expiration
+        var objValue = { cache: 'is awesome' };
+        console.log('[Cachomatic] set =>', objValue);
+        Cachomatic.setObject('example-obj-key', objValue);
+
+        // Retrieve the set cache value
+        console.log('[Cachomatic] get =>', Cachomatic.getObject('example-obj-key'));
+
+        // Check to see if a cache value exists
+        console.log('[Cachomatic] "example-obj-key" exists =>', Cachomatic.exists('example-obj-key'));
+        console.log('[Cachomatic] "non-existent-key" exists =>', Cachomatic.exists('non-existent-key'));
+
+        // Clear a specific cache key
+        Cachomatic.clear('example-key');
+        console.log('[Cachomatic] "example-key" cleared =>', !Cachomatic.exists('example-key'));
+
+        // Clear the rest of the cache
+        Cachomatic.clearAll();
+        console.log(
+          '[Cachomatic] cache cleared =>',
+          !Cachomatic.exists('example-obj-key') && !Cachomatic.exists('example-key')
+        );
+      }
+    </script>
+  </body>
+</html>
