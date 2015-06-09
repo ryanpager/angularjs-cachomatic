@@ -18,6 +18,12 @@ http://caniuse.com/#search=localstorage
 * [License](https://github.com/ryanpager/cachomatic/edit/master/LICENSE)
 * [Issue Tracking](https://github.com/ryanpager/cachomatic/issues)
 
+###### Installation
+
+```
+bower install --save cachomatic
+```
+
 ###### Building
 
 ```
