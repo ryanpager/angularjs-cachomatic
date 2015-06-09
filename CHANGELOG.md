@@ -4,5 +4,5 @@
 #### Features
 
 * Complete integration with local storage on all supported browsers and mobile
-devices.
-* Bower distribution package setup.
+devices
+* Bower distribution package setup
