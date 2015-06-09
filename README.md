@@ -21,7 +21,7 @@ http://caniuse.com/#search=localstorage
 ###### Installation
 
 ```
-bower install --save cachomatic
+bower install cachomatic
 ```
 
 ###### Building
