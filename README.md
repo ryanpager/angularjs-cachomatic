@@ -33,3 +33,9 @@ bower install
 # build the source
 gulp build
 ```
+
+###### Coming Soon
+
+* No more reliance on MomentJS
+* Unit-tests
+* Encryption
