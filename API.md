@@ -1,13 +1,13 @@
 ## Cachomatic: The API
 
-##### Provider Methods
+### Provider Methods
 
 ###### setCachePrefix([string] prefix)
 
 This function will set the cache prefix for all cache keys. If you do not
 provide one in your module configuration then this will be ignored.
 
-##### Service Methods
+### Service Methods
 
 ###### getCachePrefix : [string]
 
