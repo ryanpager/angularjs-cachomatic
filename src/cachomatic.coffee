@@ -70,7 +70,7 @@
     #
     # @return {boolean}
     exists: (key) =>
-      unless @$window.localStorage[@getCacheKey(key)]?
+      unless @$window.localStorage.getItem(@getCacheKey(key))?
         return false
 
       return true
@@ -83,20 +83,17 @@
     clear: (key) =>
       expiration = @getExpiration(key)
       if expiration?
-        delete @$window.localStorage[@getExpirationCacheKey(key)]
+        delete @$window.localStorage.removeItem(@getExpirationCacheKey(key))
 
       if @exists(key)
-        delete @$window.localStorage[@getCacheKey(key)]
+        delete @$window.localStorage.removeItem(@getCacheKey(key))
 
     # @name clearAll
     # @description
-    # This function will clear the entire cache.
+    # This function will clear all of the local storage keys and values
+    #  and reset the state back to default.
     clearAll: =>
-      # Filter the localstorage array. If the key contains the assigned
-      #  cache prefix then we want to remove it from the array.
-      for k, v of @$window.localStorage
-        if k.indexOf(@getCachePrefix()) >= 0
-          delete @$window.localStorage[k]
+      @$window.localStorage.clear()
 
     # @name get
     # @description
@@ -116,7 +113,7 @@
       unless @exists(key)
         return null
 
-      return @$window.localStorage[@getCacheKey(key)]
+      return @$window.localStorage.getItem(@getCacheKey(key))
 
     # @name set
     # @description
@@ -127,7 +124,7 @@
     # @param {string} value
     # @param {number} expiration
     set: (key, value, expiration = null) =>
-      @$window.localStorage[@getCacheKey(key)] = value
+      @$window.localStorage.setItem(@getCacheKey(key), value)
       if expiration? then @setExpiration(key, expiration)
 
     # @name getObject
@@ -163,10 +160,8 @@
     getExpiration: (key) =>
       expirationCacheKey = @getExpirationCacheKey(key)
 
-      unless @$window.localStorage[expirationCacheKey]?
-        return null
-
-      return @$window.localStorage[expirationCacheKey]
+      value = @$window.localStorage.getItem(expirationCacheKey)
+      if value then return value else return null
 
     # @name setExpiration
     # @description
@@ -178,8 +173,10 @@
     setExpiration: (key, expiration) =>
       expirationCacheKey = @getExpirationCacheKey(key)
 
-      @$window.localStorage[expirationCacheKey] =
+      @$window.localStorage.setItem(
+        expirationCacheKey,
         @moment().add(parseInt(expiration), 's').valueOf()
+      )
 
     # @name isExpired
     # @description

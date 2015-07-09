@@ -55,7 +55,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     };
 
     Cachomatic.prototype.exists = function(key) {
-      if (this.$window.localStorage[this.getCacheKey(key)] == null) {
+      if (this.$window.localStorage.getItem(this.getCacheKey(key)) == null) {
         return false;
       }
       return true;
@@ -65,26 +65,15 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       var expiration;
       expiration = this.getExpiration(key);
       if (expiration != null) {
-        delete this.$window.localStorage[this.getExpirationCacheKey(key)];
+        delete this.$window.localStorage.removeItem(this.getExpirationCacheKey(key));
       }
       if (this.exists(key)) {
-        return delete this.$window.localStorage[this.getCacheKey(key)];
+        return delete this.$window.localStorage.removeItem(this.getCacheKey(key));
       }
     };
 
     Cachomatic.prototype.clearAll = function() {
-      var k, ref, results, v;
-      ref = this.$window.localStorage;
-      results = [];
-      for (k in ref) {
-        v = ref[k];
-        if (k.indexOf(this.getCachePrefix()) >= 0) {
-          results.push(delete this.$window.localStorage[k]);
-        } else {
-          results.push(void 0);
-        }
-      }
-      return results;
+      return this.$window.localStorage.clear();
     };
 
     Cachomatic.prototype.get = function(key) {
@@ -95,14 +84,14 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
       if (!this.exists(key)) {
         return null;
       }
-      return this.$window.localStorage[this.getCacheKey(key)];
+      return this.$window.localStorage.getItem(this.getCacheKey(key));
     };
 
     Cachomatic.prototype.set = function(key, value, expiration) {
       if (expiration == null) {
         expiration = null;
       }
-      this.$window.localStorage[this.getCacheKey(key)] = value;
+      this.$window.localStorage.setItem(this.getCacheKey(key), value);
       if (expiration != null) {
         return this.setExpiration(key, expiration);
       }
@@ -117,18 +106,20 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
     };
 
     Cachomatic.prototype.getExpiration = function(key) {
-      var expirationCacheKey;
+      var expirationCacheKey, value;
       expirationCacheKey = this.getExpirationCacheKey(key);
-      if (this.$window.localStorage[expirationCacheKey] == null) {
+      value = this.$window.localStorage.getItem(expirationCacheKey);
+      if (value) {
+        return value;
+      } else {
         return null;
       }
-      return this.$window.localStorage[expirationCacheKey];
     };
 
     Cachomatic.prototype.setExpiration = function(key, expiration) {
       var expirationCacheKey;
       expirationCacheKey = this.getExpirationCacheKey(key);
-      return this.$window.localStorage[expirationCacheKey] = this.moment().add(parseInt(expiration), 's').valueOf();
+      return this.$window.localStorage.setItem(expirationCacheKey, this.moment().add(parseInt(expiration), 's').valueOf());
     };
 
     Cachomatic.prototype.isExpired = function(key) {
